@@ -1,14 +1,11 @@
+html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smart Weather Station</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>Smart IoT Weather Station</title>
 
 <style>
 
@@ -16,100 +13,121 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial;
     scroll-behavior:smooth;
 }
 
 body{
-    background:#0f172a;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#4facfe,#00c6fb,#1e3c72);
+    background-size:400% 400%;
+    animation:bgMove 15s ease infinite;
     color:white;
+    overflow-x:hidden;
 }
 
-/* NAVBAR */
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
 nav{
     width:100%;
-    background:#111827;
     padding:20px 40px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     position:sticky;
     top:0;
+    background:rgba(0,0,0,0.2);
+    backdrop-filter:blur(10px);
     z-index:1000;
 }
 
 .logo{
-    font-size:30px;
+    font-size:clamp(2rem,4vw,3rem);
     font-weight:bold;
-    color:#38bdf8;
 }
 
 nav ul{
     display:flex;
     list-style:none;
     gap:25px;
+    flex-wrap:wrap;
 }
 
 nav ul li a{
-    color:white;
     text-decoration:none;
-    font-size:18px;
+    color:white;
+    font-size:clamp(1rem,2vw,1.2rem);
     transition:0.3s;
 }
 
 nav ul li a:hover{
-    color:#38bdf8;
+    color:#ffe082;
 }
 
-/* HOME */
-
 section{
-    padding:70px 50px;
+    padding:80px 40px;
 }
 
 .home{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     text-align:center;
-    padding-top:120px;
 }
 
 .home h1{
-    font-size:60px;
+    font-size:clamp(3rem,8vw,6rem);
     margin-bottom:20px;
 }
 
 .home p{
-    font-size:24px;
-    opacity:0.8;
+    font-size:clamp(1rem,3vw,1.5rem);
+    opacity:0.9;
 }
 
 .hero-btn{
     margin-top:30px;
-    padding:15px 35px;
+    padding:15px 40px;
     border:none;
     border-radius:50px;
-    background:#38bdf8;
-    color:black;
-    font-size:18px;
+    background:white;
+    color:#1e3c72;
+    font-size:20px;
     font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-/* CARDS */
+.hero-btn:hover{
+    transform:scale(1.05);
+}
+
+.section-title{
+    font-size:clamp(2rem,5vw,3rem);
+    margin-bottom:40px;
+    text-align:center;
+}
 
 .cards{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:25px;
-    margin-top:40px;
 }
 
 .card{
-    background:#1e293b;
-    padding:35px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(12px);
     border-radius:25px;
+    padding:35px;
     text-align:center;
-    box-shadow:0 0 20px rgba(0,0,0,0.3);
-    transition:0.3s;
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+    transition:0.4s;
+    border:1px solid rgba(255,255,255,0.2);
 }
 
 .card:hover{
@@ -117,77 +135,88 @@ section{
 }
 
 .card h2{
-    margin-bottom:15px;
-    font-size:28px;
+    font-size:clamp(2rem,5vw,3rem);
+    margin-top:15px;
 }
 
-.value{
-    font-size:55px;
-    color:#38bdf8;
-    font-weight:bold;
+.card p{
+    font-size:clamp(1rem,2vw,1.3rem);
+    margin-top:10px;
 }
 
-/* BOXES */
-
-.location-box,
-.device,
-.about{
-    background:#1e293b;
-    padding:35px;
+.about,
+.analytics,
+.location,
+.device{
+    background:rgba(255,255,255,0.08);
+    margin:30px;
     border-radius:25px;
-    margin-top:25px;
-    line-height:2.2;
-    font-size:22px;
+    padding:50px;
+    backdrop-filter:blur(10px);
 }
 
-/* CHART */
-
-.chart-box{
-    background:white;
-    padding:20px;
-    border-radius:25px;
-    margin-top:30px;
+.about p,
+.analytics p,
+.location p,
+.device p{
+    font-size:clamp(1rem,2vw,1.2rem);
+    line-height:1.8;
+    margin-top:20px;
 }
-
-/* FOOTER */
 
 footer{
     text-align:center;
-    padding:35px;
-    opacity:0.7;
+    padding:20px;
+    background:rgba(0,0,0,0.2);
+    margin-top:40px;
 }
 
-/* MOBILE */
+@media(max-width:768px){
 
-@media(max-width:900px){
+    nav{
+        flex-direction:column;
+        gap:15px;
+        padding:20px;
+    }
 
-nav{
-    flex-direction:column;
-    gap:20px;
-}
+    nav ul{
+        justify-content:center;
+        gap:15px;
+    }
 
-nav ul{
-    flex-wrap:wrap;
-    justify-content:center;
-}
+    .home h1{
+        font-size:42px;
+    }
 
-.home h1{
-    font-size:42px;
-}
+    .home p{
+        font-size:18px;
+    }
 
-.home p{
-    font-size:18px;
-}
+    section{
+        padding:40px 20px;
+    }
 
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .about,
+    .analytics,
+    .location,
+    .device{
+        margin:10px;
+        padding:30px 20px;
+    }
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8e1c5b8.mp3?filename=wind-blowing-ambient-110393.mp3" type="audio/mpeg">
+</audio>
 
 <nav>
 
@@ -206,11 +235,9 @@ Weather Station
 
 </nav>
 
-<!-- HOME -->
-
 <section class="home" id="home">
 
-<h1>Smart IoT Weather Station</h1>
+<h1>☁ Smart IoT Weather Station</h1>
 
 <p>
 Live Monitoring using NodeMCU and DHT11
@@ -222,232 +249,106 @@ SYSTEM ONLINE
 
 </section>
 
-<!-- LIVE DATA -->
-
 <section id="live">
 
-<h1>Live Data</h1>
+<h1 class="section-title">
+📡 Live Data
+</h1>
 
 <div class="cards">
 
 <div class="card">
-
-<h2>Temperature</h2>
-
-<div class="value">
-<span id="temp">--</span> °C
-</div>
-
+<h3>🌡 Temperature</h3>
+<h2 id="temp">25°C</h2>
+<p>Current Temperature</p>
 </div>
 
 <div class="card">
-
-<h2>Humidity</h2>
-
-<div class="value">
-<span id="hum">--</span> %
-</div>
-
+<h3>💧 Humidity</h3>
+<h2 id="humidity">70%</h2>
+<p>Current Humidity</p>
 </div>
 
 </div>
 
 </section>
 
-<!-- ANALYTICS -->
+<section class="analytics" id="analytics">
 
-<section id="analytics">
-
-<h1>Analytics</h1>
-
-<div class="chart-box">
-
-<canvas id="weatherChart" height="100"></canvas>
-
-</div>
-
-</section>
-
-<!-- LOCATION -->
-
-<section id="location">
-
-<h1>Location</h1>
-
-<div class="location-box">
+<h1 class="section-title">
+📊 Analytics
+</h1>
 
 <p>
-Latitude :
-<span id="lat">Loading...</span>
+This section will show real-time weather graphs, temperature history, humidity analysis, and live updates from the NodeMCU weather station.
 </p>
-
-<p>
-Longitude :
-<span id="lon">Loading...</span>
-</p>
-
-<p>
-GPS Status : ACTIVE
-</p>
-
-</div>
 
 </section>
 
-<!-- DEVICE -->
+<section class="location" id="location">
 
-<section id="device">
+<h1 class="section-title">
+📍 Location
+</h1>
 
-<h1>Device Status</h1>
-
-<div class="device">
-
-<p>Controller : NodeMCU ESP8266</p>
-
-<p>Sensor : DHT11</p>
-
-<p>Status : ONLINE</p>
-
-<p>Cloud : ThingSpeak</p>
-
-<p>Update : Every 15 Seconds</p>
-
-</div>
+<p>
+Location tracking and weather region information will appear here automatically using GPS or WiFi-based detection.
+</p>
 
 </section>
 
-<!-- ABOUT -->
+<section class="device" id="device">
 
-<section id="about">
+<h1 class="section-title">
+🛠 Device Details
+</h1>
 
-<h1>About Project</h1>
-
-<div class="about">
-
-This is a smart IoT weather monitoring system.
-
-The DHT11 sensor measures temperature and humidity.
-
-NodeMCU sends live data to cloud platform.
-
-This website displays:
+<p>
+Device Used:
 <br><br>
+• NodeMCU ESP8266
+<br>
+• DHT11 Temperature and Humidity Sensor
+<br>
+• WiFi-based Cloud Monitoring
+<br>
+• Real-time IoT Data System
+</p>
 
-• Live Data<br>
-• Analytics Graphs<br>
-• Device Monitoring<br>
-• GPS Location<br>
-• Real-Time Dashboard<br>
+</section>
 
-</div>
+<section class="about" id="about">
+
+<h1 class="section-title">
+ℹ About
+</h1>
+
+<p>
+This Smart IoT Weather Station project is designed for live environmental monitoring using NodeMCU and DHT11 sensor technology. The system collects real-time temperature and humidity data and displays it on a cloud-connected website accessible from anywhere in the world.
+</p>
 
 </section>
 
 <footer>
 
-Smart Weather Monitoring System
+© 2026 Smart IoT Weather Station | Developed by Karnav
 
 </footer>
 
 <script>
 
-/* CHART */
+setInterval(()=>{
 
-const ctx = document.getElementById("weatherChart");
+let temp=Math.floor(Math.random()*10)+25;
+let humidity=Math.floor(Math.random()*20)+60;
 
-const chart = new Chart(ctx, {
+document.getElementById("temp").innerHTML=temp+"°C";
+document.getElementById("humidity").innerHTML=humidity+"%";
 
-    type: "line",
-
-    data: {
-
-        labels: [],
-
-        datasets: [{
-
-            label: "Temperature",
-
-            data: [],
-
-            tension: 0.4,
-
-            borderWidth: 3
-
-        }]
-    },
-
-    options: {
-
-        responsive: true,
-
-        plugins: {
-
-            legend: {
-                display: true
-            }
-
-        },
-
-        scales: {
-
-            y: {
-                beginAtZero: false
-            }
-
-        }
-
-    }
-
-});
-
-/* LIVE DATA */
-
-function updateData(){
-
-    let temp =
-    Math.floor(Math.random()*10)+25;
-
-    let hum =
-    Math.floor(Math.random()*20)+60;
-
-    document.getElementById("temp").innerHTML =
-    temp;
-
-    document.getElementById("hum").innerHTML =
-    hum;
-
-    chart.data.labels.push("");
-
-    chart.data.datasets[0].data.push(temp);
-
-    if(chart.data.labels.length > 12){
-
-        chart.data.labels.shift();
-
-        chart.data.datasets[0].data.shift();
-
-    }
-
-    chart.update();
-}
-
-updateData();
-
-setInterval(updateData,3000);
-
-/* LOCATION */
-
-navigator.geolocation.getCurrentPosition(function(position){
-
-document.getElementById("lat").innerHTML =
-position.coords.latitude;
-
-document.getElementById("lon").innerHTML =
-position.coords.longitude;
-
-});
+},3000);
 
 </script>
 
 </body>
 </html>
+```
