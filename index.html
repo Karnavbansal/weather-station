@@ -1,215 +1,15 @@
-html
+
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartSense AI Weather Dashboard</title>
 
-<title>Smart IoT Weather Station</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial, sans-serif;
-    background:linear-gradient(135deg,#4facfe,#00c6fb,#1e3c72);
-    background-size:400% 400%;
-    animation:bgMove 15s ease infinite;
-    color:white;
-    overflow-x:hidden;
-}
-
-@keyframes bgMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
-
-nav{
-    width:100%;
-    padding:20px 40px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    background:rgba(0,0,0,0.2);
-    backdrop-filter:blur(10px);
-    z-index:1000;
-}
-
-.logo{
-    font-size:clamp(2rem,4vw,3rem);
-    font-weight:bold;
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
-    flex-wrap:wrap;
-}
-
-nav ul li a{
-    text-decoration:none;
-    color:white;
-    font-size:clamp(1rem,2vw,1.2rem);
-    transition:0.3s;
-}
-
-nav ul li a:hover{
-    color:#ffe082;
-}
-
-section{
-    padding:80px 40px;
-}
-
-.home{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.home h1{
-    font-size:clamp(3rem,8vw,6rem);
-    margin-bottom:20px;
-}
-
-.home p{
-    font-size:clamp(1rem,3vw,1.5rem);
-    opacity:0.9;
-}
-
-.hero-btn{
-    margin-top:30px;
-    padding:15px 40px;
-    border:none;
-    border-radius:50px;
-    background:white;
-    color:#1e3c72;
-    font-size:20px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.hero-btn:hover{
-    transform:scale(1.05);
-}
-
-.section-title{
-    font-size:clamp(2rem,5vw,3rem);
-    margin-bottom:40px;
-    text-align:center;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.card{
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(12px);
-    border-radius:25px;
-    padding:35px;
-    text-align:center;
-    box-shadow:0 8px 30px rgba(0,0,0,0.25);
-    transition:0.4s;
-    border:1px solid rgba(255,255,255,0.2);
-}
-
-.card:hover{
-    transform:translateY(-10px);
-}
-
-.card h2{
-    font-size:clamp(2rem,5vw,3rem);
-    margin-top:15px;
-}
-
-.card p{
-    font-size:clamp(1rem,2vw,1.3rem);
-    margin-top:10px;
-}
-
-.about,
-.analytics,
-.location,
-.device{
-    background:rgba(255,255,255,0.08);
-    margin:30px;
-    border-radius:25px;
-    padding:50px;
-    backdrop-filter:blur(10px);
-}
-
-.about p,
-.analytics p,
-.location p,
-.device p{
-    font-size:clamp(1rem,2vw,1.2rem);
-    line-height:1.8;
-    margin-top:20px;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    background:rgba(0,0,0,0.2);
-    margin-top:40px;
-}
-
-@media(max-width:768px){
-
-    nav{
-        flex-direction:column;
-        gap:15px;
-        padding:20px;
-    }
-
-    nav ul{
-        justify-content:center;
-        gap:15px;
-    }
-
-    .home h1{
-        font-size:42px;
-    }
-
-    .home p{
-        font-size:18px;
-    }
-
-    section{
-        padding:40px 20px;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .about,
-    .analytics,
-    .location,
-    .device{
-        margin:10px;
-        padding:30px 20px;
-    }
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -218,137 +18,131 @@ footer{
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8e1c5b8.mp3?filename=wind-blowing-ambient-110393.mp3" type="audio/mpeg">
 </audio>
 
+<div class="rain"></div>
+
 <nav>
+  <div class="logo">☁ SmartSense AI</div>
 
-<div class="logo">
-Weather Station
-</div>
-
-<ul>
-<li><a href="#home">Home</a></li>
-<li><a href="#live">Live Data</a></li>
-<li><a href="#analytics">Analytics</a></li>
-<li><a href="#location">Location</a></li>
-<li><a href="#device">Device</a></li>
-<li><a href="#about">About</a></li>
-</ul>
-
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#live">Live Data</a></li>
+    <li><a href="#forecast">Forecast</a></li>
+    <li><a href="#analytics">Analytics</a></li>
+    <li><a href="#device">Device</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
 </nav>
 
-<section class="home" id="home">
-
-<h1>☁ Smart IoT Weather Station</h1>
-
-<p>
-Live Monitoring using NodeMCU and DHT11
-</p>
-
-<button class="hero-btn">
-SYSTEM ONLINE
-</button>
-
+<section class="hero" id="home">
+  <h1>SmartSense AI Weather System</h1>
+  <p>Futuristic IoT Environmental Monitoring Dashboard</p>
+  <button>SYSTEM ONLINE</button>
 </section>
 
 <section id="live">
+  <h2>📡 Live Weather Data</h2>
 
-<h1 class="section-title">
-📡 Live Data
-</h1>
+  <div class="cards">
 
-<div class="cards">
+    <div class="card">
+      <h3>🌡 Temperature</h3>
+      <h1 id="temp">28°C</h1>
+    </div>
 
-<div class="card">
-<h3>🌡 Temperature</h3>
-<h2 id="temp">25°C</h2>
-<p>Current Temperature</p>
-</div>
+    <div class="card">
+      <h3>💧 Humidity</h3>
+      <h1 id="humidity">72%</h1>
+    </div>
 
-<div class="card">
-<h3>💧 Humidity</h3>
-<h2 id="humidity">70%</h2>
-<p>Current Humidity</p>
-</div>
+    <div class="card">
+      <h3>🌧 Rain Status</h3>
+      <h1 id="rain">NO RAIN</h1>
+    </div>
 
-</div>
+    <div class="card">
+      <h3>🌫 Air Quality</h3>
+      <h1 id="air">GOOD</h1>
+    </div>
 
+  </div>
 </section>
 
-<section class="analytics" id="analytics">
+<section id="forecast">
+  <h2>📅 5-Day Forecast</h2>
 
-<h1 class="section-title">
-📊 Analytics
-</h1>
+  <div class="forecast-grid">
 
-<p>
-This section will show real-time weather graphs, temperature history, humidity analysis, and live updates from the NodeMCU weather station.
-</p>
+    <div class="forecast-card">
+      <h3>Monday</h3>
+      <p>🌧 Rainy</p>
+      <h2>27°C</h2>
+    </div>
 
+    <div class="forecast-card">
+      <h3>Tuesday</h3>
+      <p>☁ Cloudy</p>
+      <h2>29°C</h2>
+    </div>
+
+    <div class="forecast-card">
+      <h3>Wednesday</h3>
+      <p>☀ Sunny</p>
+      <h2>31°C</h2>
+    </div>
+
+    <div class="forecast-card">
+      <h3>Thursday</h3>
+      <p>🌩 Storm</p>
+      <h2>26°C</h2>
+    </div>
+
+    <div class="forecast-card">
+      <h3>Friday</h3>
+      <p>🌦 Shower</p>
+      <h2>28°C</h2>
+    </div>
+
+  </div>
 </section>
 
-<section class="location" id="location">
+<section id="analytics">
+  <h2>📊 Real-Time Analytics</h2>
 
-<h1 class="section-title">
-📍 Location
-</h1>
-
-<p>
-Location tracking and weather region information will appear here automatically using GPS or WiFi-based detection.
-</p>
-
+  <div class="graph-box">
+    <canvas id="weatherChart"></canvas>
+  </div>
 </section>
 
-<section class="device" id="device">
+<section id="device">
+  <h2>🛠 Device Monitoring</h2>
 
-<h1 class="section-title">
-🛠 Device Details
-</h1>
-
-<p>
-Device Used:
-<br><br>
-• NodeMCU ESP8266
-<br>
-• DHT11 Temperature and Humidity Sensor
-<br>
-• WiFi-based Cloud Monitoring
-<br>
-• Real-time IoT Data System
-</p>
-
+  <div class="device-box">
+    <p>NodeMCU Status : ONLINE</p>
+    <p>Firebase Status : CONNECTED</p>
+    <p>WiFi Strength : STRONG</p>
+    <p>Last Update : LIVE</p>
+  </div>
 </section>
 
-<section class="about" id="about">
+<section id="about">
+  <h2>ℹ About Project</h2>
 
-<h1 class="section-title">
-ℹ About
-</h1>
-
-<p>
-This Smart IoT Weather Station project is designed for live environmental monitoring using NodeMCU and DHT11 sensor technology. The system collects real-time temperature and humidity data and displays it on a cloud-connected website accessible from anywhere in the world.
-</p>
-
+  <div class="about-box">
+    <p>
+      SmartSense AI Environmental & Weather Monitoring System is an advanced IoT platform designed for real-time environmental monitoring using NodeMCU ESP8266, cloud technologies, and futuristic web systems.
+    </p>
+  </div>
 </section>
 
 <footer>
-
-© 2026 Smart IoT Weather Station | Developed by Karnav
-
+  © SmartSense AI Weather Dashboard
 </footer>
 
-<script>
-
-setInterval(()=>{
-
-let temp=Math.floor(Math.random()*10)+25;
-let humidity=Math.floor(Math.random()*20)+60;
-
-document.getElementById("temp").innerHTML=temp+"°C";
-document.getElementById("humidity").innerHTML=humidity+"%";
-
-},3000);
-
-</script>
+<script type="module" src="script.js"></script>
 
 </body>
 </html>
 ```
+
+---
+

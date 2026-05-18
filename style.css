@@ -1,0 +1,179 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#071120,#0f2d52,#0b5cab);
+    background-size:400% 400%;
+    animation:bgMove 15s infinite;
+    color:white;
+    overflow-x:hidden;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.rain{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image:url('https://i.imgur.com/NM6N8.png');
+    opacity:0.1;
+    animation:rain 0.4s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes rain{
+    from{background-position:0 0;}
+    to{background-position:-20% 100%;}
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:rgba(0,0,0,0.2);
+    backdrop-filter:blur(10px);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:bold;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#00d9ff;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:1.3rem;
+}
+
+.hero button{
+    margin-top:30px;
+    padding:15px 40px;
+    border:none;
+    border-radius:40px;
+    background:#00d9ff;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+section{
+    padding:80px 40px;
+}
+
+section h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2.5rem;
+}
+
+.cards,
+.forecast-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card,
+.forecast-card,
+.device-box,
+.about-box,
+.graph-box{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+    border-radius:25px;
+    padding:30px;
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 8px 30px rgba(0,0,0,0.3);
+}
+
+.card h1{
+    margin-top:20px;
+    font-size:3rem;
+    color:#ffb347;
+}
+
+.forecast-card{
+    text-align:center;
+}
+
+.forecast-card h2{
+    margin-top:10px;
+    color:#00ffae;
+}
+
+.device-box p,
+.about-box p{
+    font-size:1.1rem;
+    line-height:2;
+}
+
+canvas{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:rgba(0,0,0,0.2);
+}
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:2.5rem;
+    }
+
+    section{
+        padding:50px 20px;
+    }
+}
