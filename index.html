@@ -1,3 +1,6 @@
+## FINAL PRO `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +9,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SmartSense AI Weather Station</title>
+<title>SmartSense AI</title>
 
 <link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -16,28 +24,38 @@
 
 <body>
 
-<div class="bg-animation"></div>
+<div class="background-glow"></div>
 
 <nav>
 
-<h1>☁ SmartSense AI</h1>
+<div class="logo">
+☁ SmartSense AI
+</div>
 
 <ul>
-<li><a href="#">Home</a></li>
-<li><a href="#">Live</a></li>
-<li><a href="#">Analytics</a></li>
-<li><a href="#">Forecast</a></li>
-<li><a href="#">About</a></li>
+
+<li><a href="#home">Home</a></li>
+
+<li><a href="#live">Live Data</a></li>
+
+<li><a href="#analytics">Analytics</a></li>
+
+<li><a href="#forecast">Forecast</a></li>
+
+<li><a href="#about">About</a></li>
+
 </ul>
 
 </nav>
 
-<section class="hero">
+<section class="hero" id="home">
 
-<h2>AI Weather Monitoring System</h2>
+<h1>
+AI Environmental Monitoring System
+</h1>
 
 <p>
-Real-Time Environmental Monitoring Dashboard
+Real-Time Futuristic Weather Intelligence Dashboard
 </p>
 
 <div class="status">
@@ -50,93 +68,166 @@ SYSTEM OFFLINE
 
 </section>
 
-<section class="cards">
+<section class="live-section" id="live">
+
+<h2>
+Live Weather Data
+</h2>
+
+<div class="cards">
 
 <div class="card">
-<h3>🌡 Temperature</h3>
-<h1 id="temp">--</h1>
+
+<h3>Temperature</h3>
+
+<h1 id="temp">
+--
+</h1>
+
 </div>
 
 <div class="card">
-<h3>💧 Humidity</h3>
-<h1 id="humidity">--</h1>
+
+<h3>Humidity</h3>
+
+<h1 id="humidity">
+--
+</h1>
+
 </div>
 
 <div class="card">
-<h3>🌧 Rain Status</h3>
-<h1 id="rain">--</h1>
+
+<h3>Rain Status</h3>
+
+<h1 id="rain">
+--
+</h1>
+
 </div>
 
 <div class="card">
-<h3>🌫 AQI</h3>
-<h1 id="aqi">--</h1>
+
+<h3>Air Quality</h3>
+
+<h1 id="aqi">
+--
+</h1>
+
+</div>
+
 </div>
 
 </section>
 
-<section class="last-section">
+<section class="last-data">
 
-<h2>Last System Status</h2>
+<h2>
+System Status
+</h2>
 
 <p id="lastData">
-NO DATA AVAILABLE
+
+NO LAST RECORDED VALUES AVAILABLE
+
 </p>
 
 </section>
 
-<section class="chart-section">
+<section class="analytics" id="analytics">
 
-<h2>Live Analytics</h2>
+<h2>
+Real-Time Analytics
+</h2>
+
+<div class="chart-box">
 
 <canvas id="weatherChart"></canvas>
 
+</div>
+
 </section>
 
-<section class="forecast">
+<section class="forecast-section" id="forecast">
 
-<h2>5 Day Forecast</h2>
+<h2>
+5-Day Forecast
+</h2>
 
-<div class="forecast-boxes">
+<div class="forecast-grid">
 
 <div class="forecast-card">
-<h3>Mon</h3>
+
+<h3>Monday</h3>
+
 <p>☀ Sunny</p>
-<p>31°C</p>
+
+<h1>31°C</h1>
+
 </div>
 
 <div class="forecast-card">
-<h3>Tue</h3>
+
+<h3>Tuesday</h3>
+
 <p>🌧 Rain</p>
-<p>27°C</p>
+
+<h1>27°C</h1>
+
 </div>
 
 <div class="forecast-card">
-<h3>Wed</h3>
+
+<h3>Wednesday</h3>
+
 <p>☁ Cloudy</p>
-<p>29°C</p>
+
+<h1>29°C</h1>
+
 </div>
 
 <div class="forecast-card">
-<h3>Thu</h3>
+
+<h3>Thursday</h3>
+
 <p>⛈ Storm</p>
-<p>25°C</p>
+
+<h1>25°C</h1>
+
 </div>
 
 <div class="forecast-card">
-<h3>Fri</h3>
+
+<h3>Friday</h3>
+
 <p>🌤 Clear</p>
-<p>30°C</p>
+
+<h1>30°C</h1>
+
 </div>
 
 </div>
 
 </section>
 
-<footer>
+<footer id="about">
+
+<h2>
+SmartSense AI
+</h2>
+
+<p>
+Advanced IoT Weather Monitoring Platform
+</p>
+
+<p class="madeby">
 Made By Karnav Bansal
+</p>
+
 </footer>
 
 <script type="module" src="script.js"></script>
 
 </body>
 </html>
+```

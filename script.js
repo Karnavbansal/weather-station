@@ -18,15 +18,18 @@ apiKey: "AIzaSyAV8X3eva8BN7F1Dt-r_QStlwFxpLyQXN8",
 
 authDomain: "weather-station-f59f0.firebaseapp.com",
 
-databaseURL: "https://weather-station-f59f0-default-rtdb.asia-southeast1.firebasedatabase.app",
+databaseURL:
+"https://weather-station-f59f0-default-rtdb.asia-southeast1.firebasedatabase.app",
 
 projectId: "weather-station-f59f0",
 
-storageBucket: "weather-station-f59f0.firebasestorage.app",
+storageBucket:
+"weather-station-f59f0.firebasestorage.app",
 
 messagingSenderId: "724168425572",
 
-appId: "1:724168425572:web:ab416b6e50d6f4adba5f71"
+appId:
+"1:724168425572:web:ab416b6e50d6f4adba5f71"
 
 };
 
@@ -36,42 +39,53 @@ const db = getDatabase(app);
 
 const weatherRef = ref(db,"weather");
 
-function updateOffline(){
-
-const oldData =
-JSON.parse(localStorage.getItem("lastWeather"));
-
-const oldTime =
-localStorage.getItem("lastTime");
+function setOfflineMode(){
 
 document.querySelector(".status").innerHTML =
 "SYSTEM OFFLINE";
 
 document.querySelector(".status").style.background =
-"red";
+"#ef4444";
 
-if(oldData){
+const lastData =
+JSON.parse(localStorage.getItem("lastWeather"));
+
+const lastTime =
+localStorage.getItem("lastTime");
+
+if(lastData){
 
 document.getElementById("temp").innerHTML =
-oldData.temperature + "°C";
+lastData.temperature + "°C";
 
 document.getElementById("humidity").innerHTML =
-oldData.humidity + "%";
+lastData.humidity + "%";
+
+document.getElementById("rain").innerHTML =
+lastData.rain || "--";
+
+document.getElementById("aqi").innerHTML =
+lastData.aqi || "--";
 
 document.getElementById("lastData").innerHTML =
-"ESP NOT CONNECTED • LAST DATA FROM: " + oldTime;
+
+"ESP NOT CONNECTED • LAST RECORDED DATA FROM: "
++ lastTime;
 
 }
 else{
 
-document.getElementById("temp").innerHTML =
-"--";
+document.getElementById("temp").innerHTML = "--";
 
-document.getElementById("humidity").innerHTML =
-"--";
+document.getElementById("humidity").innerHTML = "--";
+
+document.getElementById("rain").innerHTML = "--";
+
+document.getElementById("aqi").innerHTML = "--";
 
 document.getElementById("lastData").innerHTML =
-"NO PREVIOUS DATA AVAILABLE";
+
+"NO LAST RECORDED VALUES AVAILABLE";
 
 }
 
@@ -81,23 +95,19 @@ onValue(weatherRef,(snapshot)=>{
 
 const data = snapshot.val();
 
-if(data){
+if(
 
-localStorage.setItem(
-"lastWeather",
-JSON.stringify(data)
-);
+data &&
+data.temperature !== undefined &&
+data.humidity !== undefined
 
-localStorage.setItem(
-"lastTime",
-new Date().toLocaleString()
-);
+){
 
 document.querySelector(".status").innerHTML =
 "SYSTEM ONLINE";
 
 document.querySelector(".status").style.background =
-"#00ff99";
+"#22c55e";
 
 document.getElementById("temp").innerHTML =
 data.temperature + "°C";
@@ -111,10 +121,8 @@ document.getElementById("rain").innerHTML =
 "RAIN EXPECTED";
 
 document.body.style.background =
-"linear-gradient(135deg,#111827,#1e3a5f,#000000)";
 
-document.getElementById("aqi").innerHTML =
-"FRESH";
+"linear-gradient(135deg,#0f172a,#1e293b,#111827)";
 
 }
 else{
@@ -122,18 +130,60 @@ else{
 document.getElementById("rain").innerHTML =
 "NO RAIN";
 
+document.body.style.background =
+
+"linear-gradient(135deg,#020617,#0f172a,#1e3a8a)";
+
+}
+
+if(data.temperature > 35){
+
+document.getElementById("aqi").innerHTML =
+"MODERATE";
+
+}
+else{
+
 document.getElementById("aqi").innerHTML =
 "GOOD";
 
 }
 
 document.getElementById("lastData").innerHTML =
-"LIVE DATA RECEIVED";
+"LIVE SENSOR DATA RECEIVED";
+
+localStorage.setItem(
+
+"lastWeather",
+
+JSON.stringify({
+
+temperature:data.temperature,
+
+humidity:data.humidity,
+
+rain:
+document.getElementById("rain").innerHTML,
+
+aqi:
+document.getElementById("aqi").innerHTML
+
+})
+
+);
+
+localStorage.setItem(
+
+"lastTime",
+
+new Date().toLocaleString()
+
+);
 
 }
 else{
 
-updateOffline();
+setOfflineMode();
 
 }
 
@@ -150,13 +200,16 @@ document.getElementById("humidity").innerText;
 const speech =
 new SpeechSynthesisUtterance(
 
-`Current temperature is ${temp} and humidity is ${humidity}`
+`Current temperature is ${temp}
+and humidity is ${humidity}`
 
 );
 
+speech.rate = 1;
+
 window.speechSynthesis.speak(speech);
 
-}
+};
 
 const ctx =
 document.getElementById("weatherChart");
@@ -185,7 +238,7 @@ label:'Temperature',
 
 data:[25,26,28,30,31,29,27],
 
-borderColor:'black',
+borderColor:'#000000',
 
 backgroundColor:'transparent',
 
@@ -201,7 +254,7 @@ label:'Humidity',
 
 data:[60,63,65,70,72,68,64],
 
-borderColor:'blue',
+borderColor:'#2563eb',
 
 backgroundColor:'transparent',
 
@@ -216,7 +269,47 @@ tension:0.4
 },
 
 options:{
-responsive:true
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+labels:{
+
+color:'white'
+
+}
+
+}
+
+},
+
+scales:{
+
+x:{
+
+ticks:{
+
+color:'white'
+
+}
+
+},
+
+y:{
+
+ticks:{
+
+color:'white'
+
+}
+
+}
+
+}
+
 }
 
 });
